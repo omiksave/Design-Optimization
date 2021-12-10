@@ -11,6 +11,20 @@ w = zeros(2,1);
 sol = x;
 %Solve Lagrangian function
 lager = lagran(x,mu_old);
+%Calculating norm of lagrangian
+l_norm = norm(lager);
+
+while l_norm>eps
+    %Calculating direction and mu by solving QP subproblem
+    [s,mu_new] = sqp(x,W);
+    %Calculating new step size and weigths using Armijio Line Search
+    [a,w] = linesearch(x,s,mu_old,w);
+    
+    dx = a*s; %Calculating dx or small change in x
+    x = x+dx; %Updating x
+    
+    
+    
 
 
 
