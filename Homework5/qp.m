@@ -23,7 +23,10 @@ while stop
     if length(solv)>2
         mu = solv(3:end);
         mu = round(mu*1e12)/1e12;
-        mu_old = mu(active);
+        if numel(mu)<2
+            mu(end+1) = 1e-5;
+        end
+        mu_old(active) = mu(active);
     end
     
     gcheck = A0*s-b0;

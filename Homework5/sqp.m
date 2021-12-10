@@ -1,6 +1,6 @@
 function [x,mu_old,sol] = sqp(x0,eps)
 %Setting up initial x
-x = x0;
+x = x0';
 %Initializing Hessian
 W = eye(2); % 2 Variables
 %Initialing mu
@@ -24,13 +24,13 @@ while l_norm>eps
     x = x+dx; %Updating x
     %% Updating Hessian using BFGS
     delta_l = lagran(x,mu_new)-lagran(x-dx,mu_new);
-    if dx'*delta_l>=0.2*dx'*W*dx
+    if dx'*delta_l'>=0.2*dx'*W*dx
         theta = 1;
     else
         theta = (0.8*dx'*W*dx)/(dx'*W*dx-dx'*delta_l);
     end
     %Updating Y
-    y = theta*delta_l+ (1-theta)*W*dx;
+    y = theta*delta_l'+ (1-theta)*W*dx;
     %Computing hessian
     W = W+(y*y')/(y'*dx)-((W*dx)*(W*dx)')/(dx'*W*dx);
     l_norm = norm(lagran(x,mu_new));
