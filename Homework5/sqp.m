@@ -10,6 +10,7 @@ w = zeros(2,1);
 %Initializing solution array by first x
 sol = x;
 %Solve Lagrangian function
-lager = lagran(x,u);
+lager = lagran(x,mu_old);
+
 
 
