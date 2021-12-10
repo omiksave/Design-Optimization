@@ -29,4 +29,4 @@ function report(sol,f,g)
     plot(1:iter, log(F-F(end)+eps),'k','lineWidth',3);
     ylabel('|F-F*|')
     xlabel('Iterations')
-    title('Log Convergence of Solution')
+    title('Log CO
