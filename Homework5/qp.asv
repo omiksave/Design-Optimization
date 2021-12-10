@@ -15,8 +15,8 @@ while stop
     s = zeros(size(g(x)));
     A = A0(active,:);
     b = b0(active,:);
-    %Solving equation for [s;a] = [W A;A' zeros]^-1[-df(x);-h_dash]
-    solv = [-df(x)';b]/[W A';A zeros(min(size(A)))];
+    
+    solv = [-df(x)';b]/inv([W A';A zeros(min(size(A)))]);
     
     s = solv(1:2);
     mu = solve(3:end);
@@ -24,7 +24,6 @@ while stop
     gcheck = A0*s-b0;
     gcheck = round(gcheck*1e12)/1e12;
     ind_add = []; ind_remove = [];
-    %Check Termination Status
     if numel(mu)==0 || min(mu)>0
         if max(gcheck)<=0
             stop = true;
@@ -34,9 +33,7 @@ while stop
     else
         [~,ind_remove] = min(mu);
     end
-    %Remove the most negative mu from the active set
     active(ind_remove)=[];
-    %Add most violated constraint to the activeset
     active = [active ind_add];
     %Avoid Duplications in active set
     active = unique(active);
