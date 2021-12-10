@@ -10,7 +10,7 @@ while count<=100
    %Defining Merit Function
    f_a = f(x+a*s)+w'*max(0,g(x+a*s));
    %Defining phi
-   phi_a = (f(x)+w'*max(0,g(x))) + t*a*(df(x)*s+w'*(dg(x)*s);
+   phi_a = (f(x)+w'*max(0,g(x))) + t*a*(df(x)*s+w'*(dg(x)*s));
    %Defining linesearch conditions
    if f_a>phi_a
        a = a*b; %Reducing step size
