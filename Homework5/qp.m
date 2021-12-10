@@ -16,7 +16,7 @@ while stop
     A = A0(active,:);
     b = b0(active,:);
     %Solving equation for [s;a] = [W A;A' zeros]^-1[-df(x);-h_dash]
-    solv = [-df(x)';b]/[W A';A zeros(min(size(A)))];
+    solv = inv([W A';A zeros(min(size(A)))])*[-df(x)';b];
     
     s = solv(1:2);
     mu = solve(3:end);
