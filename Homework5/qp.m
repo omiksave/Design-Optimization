@@ -18,19 +18,27 @@ while stop
     b = b0(active,:);
     %Solving equation for [s;a] = [W A;A' zeros]^-1[-df(x);-h_dash]
     solv = inv([W A';A zeros(min(size(A)))])*[-df(x)';b];
-    
+    %First two elements are directions of x1 and x2
     s = solv(1:2);
+    %The rest is mu
     if length(solv)>2
         mu = solv(3:end);
         mu = round(mu*1e12)/1e12;
+        %It is important that mu has correct dimensions
         if numel(mu)<2
+            %But keeping elements of mu 0 wont necessarily satisfy
+            %conditions
+            %Hence set them to small values.
             mu(end+1) = 1e-5;
         end
+        %Replacing with activeset
         mu_old(active) = mu(active);
     end
-    
+    %Checking stop criteria
     gcheck = A0*s-b0;
+    %Avoiding numerical errors
     gcheck = round(gcheck*1e12)/1e12;
+    %Creating insert and drop indices
     ind_add = []; ind_remove = [];
     %Check Termination Status
     if numel(mu)==0 || min(mu)>0
