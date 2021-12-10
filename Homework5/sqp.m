@@ -33,8 +33,11 @@ while l_norm>eps
     y = theta*delta_l'+ (1-theta)*W*dx;
     %Computing hessian
     W = W+(y*y')/(y'*dx)-((W*dx)*(W*dx)')/(dx'*W*dx);
+    %Computing new norm
     l_norm = norm(lagran(x,mu_new));
+    %Updating mu
     mu_old = mu_new;
+    %Appending solution
     sol = [sol x];
 end
     
