@@ -1,4 +1,4 @@
-function sqp(x0,eps)
+function [x,mu_old,sol] = sqp(x0,eps)
 %Setting up initial x
 x = x0;
 %Initializing Hessian
@@ -16,7 +16,7 @@ l_norm = norm(lager);
 
 while l_norm>eps
     %Calculating direction and mu by solving QP subproblem
-    [s,mu_new] = sqp(x,W);
+    [s,mu_new] = qp(x,W);
     %Calculating new step size and weigths using Armijio Line Search
     [a,w] = linesearch(x,s,mu_old,w);
     
