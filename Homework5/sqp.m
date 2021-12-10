@@ -7,3 +7,7 @@ W = eye(2); % 2 Variables
 mu_old = zeros(2,1);
 %Intializing weights
 w = zeros(2,1);
+%Initializing solution array by first x
+sol = x;
+
+
